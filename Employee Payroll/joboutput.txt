@@ -1,0 +1,346 @@
+1                   J E S 2  J O B  L O G  --  S Y S T E M  2 9 6 4  --  N O D E  S V S C J E S 2
+0
+ 00.58.17 JOB06129 ---- TUESDAY,   20 OCT 2020 ----
+ 00.58.17 JOB06129  IRR010I  USERID KC03C96  IS ASSIGNED TO THIS JOB.
+ 00.58.17 JOB06129  ICH70001I KC03C96  LAST ACCESS AT 00:57:33 ON TUESDAY, OCTOBER 20, 2020
+ 00.58.17 JOB06129  $HASP373 KC03C96  STARTED - INIT 2    - CLASS A        - SYS 2964
+ 00.58.17 JOB06129  $HASP395 KC03C96  ENDED - RC=0000
+0------ JES2 JOB STATISTICS ------
+-  20 OCT 2020 JOB EXECUTION DATE
+-          254 CARDS READ
+-          350 SYSOUT PRINT RECORDS
+-            0 SYSOUT PUNCH RECORDS
+-           34 SYSOUT SPOOL KBYTES
+-         0.00 MINUTES EXECUTION TIME
+         1 //KC03C96 JOB ,'Kofi Adu-Gyan' ,MSGCLASS=H                              JOB06129
+         2 //JSTEP01  EXEC PGM=ASSIST
+         3 //STEPLIB  DD DSN=KC00NIU.ASSIST.LOADLIB,DISP=SHR
+         4 //SYSPRINT DD SYSOUT=*
+         5 //SYSIN    DD *
+           //*
+         6 //FT05F001 DD DSN=KC02038.CSCI360.DATAFA20(ASGN3DAT),DISP=SHR
+           //*
+         7 //FT06F001 DD SYSOUT=*
+           //*
+         8 //SYSPRINT DD SYSOUT=*
+           /*
+ ICH70001I KC03C96  LAST ACCESS AT 00:57:33 ON TUESDAY, OCTOBER 20, 2020
+ IEFA111I KC03C96 IS USING THE FOLLOWING JOB RELATED SETTINGS:
+          SWA=ABOVE,TIOT SIZE=32K,DSENQSHR=DISALLOW,GDGBIAS=JOB
+ IEF236I ALLOC. FOR KC03C96 JSTEP01
+ IGD103I SMS ALLOCATED TO DDNAME STEPLIB
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF237I JES2 ALLOCATED TO SYSIN
+ IGD103I SMS ALLOCATED TO DDNAME FT05F001
+ IEF237I JES2 ALLOCATED TO FT06F001
+ IEF237I JES2 ALLOCATED TO SYSPRINT
+ IEF142I KC03C96 JSTEP01 - STEP WAS EXECUTED - COND CODE 0000
+ IGD104I KC00NIU.ASSIST.LOADLIB                       RETAINED,  DDNAME=STEPLIB
+ IEF285I   KC03C96.KC03C96.JOB06129.D0000102.?          SYSOUT
+ IEF285I   KC03C96.KC03C96.JOB06129.D0000101.?          SYSIN
+ IGD104I KC02038.CSCI360.DATAFA20                     RETAINED,  DDNAME=FT05F001
+ IEF285I   KC03C96.KC03C96.JOB06129.D0000103.?          SYSOUT
+ IEF285I   KC03C96.KC03C96.JOB06129.D0000104.?          SYSOUT
+ IEF373I STEP/JSTEP01 /START 2020294.0058
+ IEF032I STEP/JSTEP01 /STOP  2020294.0058
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+         VIRT:   584K  SYS:   244K  EXT:        0K  SYS:    11408K
+         ATB- REAL:                  1056K  SLOTS:                     0K
+              VIRT- ALLOC:      13M SHRD:       0M
+ IEF375I  JOB/KC03C96 /START 2020294.0058
+ IEF033I  JOB/KC03C96 /STOP  2020294.0058
+         CPU:     0 HR  00 MIN  00.00 SEC    SRB:     0 HR  00 MIN  00.00 SEC
+1*** ASSIST 4.0/A2-05/15/82  470/V7A/0:OS/VS2  INS=SDFP7/X=BGHO, CHECK/TRC/=1180, OPTS=CDKMPR FROM PENN ST*NIU COMPSCI*LT
+0
+0                                                                                                               PAGE    1
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+                                       1 ******************************************************************
+                                       2 *                                                                *
+                                       3 *  CSCI 360-1           ASSIGN3                       FALL 2020  *
+                                       4 *                                                                *
+                                       5 *  DATE DUE:  10/16/2020                                         *
+                                       6 *  TIME DUE:  11:59PM                                            *
+                                       7 *                                                                *
+                                       8 *  AUTHOR: Kofi Adu-Gyan                                         *
+                                       9 *                                                                *
+                                      10 *    An Assembler program that  calculates the payroll for a     *
+                                      11 *    buisness.                                                   *
+                                      12 *                                                                *
+                                      13 *                                                                *
+                                      14 *  REGISTER USAGE:                                               *
+                                      15 *    REG 5-11 HOLDS BUFFER INPUT DATA                            *
+                                      16 *                                                                *
+                                      17 *                                                                *
+                                      18 ******************************************************************
+                                      19 *        COL. 10
+                                      20 *        |     COL . 16
+                                      21 *        |     |
+                                      22 *        v     v
+ 000000                               23 PAYROLL1 CSECT
+ 000000                               24          USING PAYROLL1,15       ESTABLISH ADDRESSABILITY ON REG 15
+                                      25 *
+                                      26 *** <STEP 1> Perform priming read and go into record processing loop
+                                      27 *
+ 000000 53B0 F290            00290    28          XDECI 11,RDBUFFER       CONVRT 1ST NUM FRM INPUT TO BINARY R11
+ 000004 E000 F290 0050 00290          29          XREAD RDBUFFER,80
+                                      30 *
+                                      31 *** <STEP 2> Place values from the input record into registers
+                                      32 *
+ 00000A 50B0 F25C            0025C    33          ST    11,TXWTHHOL       STORE NUM IN R11 INTO TXWTHHOL
+ 00000E 53B0 1000            00000    34          XDECI 11,0(0,1)         CONVERT 2ND NUM FRM INPUT INTO R11
+ 000012 50B0 F260            00260    35          ST    11,SENRTY1        STORE NUM IN R11 INTO SENRTY1
+ 000016 53B0 1000            00000    36          XDECI 11,0(0,1)         3RD NUM FROM INPUT RECORD INTO R11
+ 00001A 50B0 F264            00264    37          ST    11,SENRTY2        STORE NUM IN R11 INTO SENRTY2
+                                      38 *
+ 00001E E000 F290 0050 00290          39          XREAD RDBUFFER,80       READ NEXT RECORD
+ 000024 58C0 F23C            0023C    40          L     12,EMPCOUNT       LOAD EMPLOYEE COUNTER WITH 0 IN R12
+ 000028 5880 F240            00240    41          L     8,TGROSS          LOAD TOTAL GROSS COUNTER WITH 0 IN R8
+ 00002C 41B0 F290            00290    42          LA    11,RDBUFFER       LOAD RDBUFFER ADDR INTO R11
+                                      43 *
+                                      44 *** <STEP 3> Copy bytes to the detail line and to prep for calcs
+                                      45 *
+ 000030 4770 F158            00158    46 LOOP     BNE   ENDLOOP           ENTER RECORD PROCESSING LOOP
+ 000034 5AC0 F230            00230    47          A     12,=F'1'          ADD 1 TO EMPLOYEE COUNTER
+ 000038 D218 F2E1 B000 002E1 00000    48          MVC   EMPLYNAM(25),0(11) MOVE 25 BYTES FRM RDBUFFER TO EMPLY
+ 00003E D204 F2FA B019 002FA 00019    49          MVC   ID(5),25(11)       MOVE 5 BYTES FROM 25 OFF 11 INTO ID
+ 000044 D200 F270 B01F 00270 0001F    50          MVC   SENRTY(1),31(11)   MOVE 1 BYTE 31 OFF 11 TO SENRTY
+ 00004A 58A0 F270            00270    51          L     10,SENRTY          LOAD CHARS IN SENRTY TO  R10
+ 00004E D201 F274 B021 00274 00021    52          MVC   RATE(2),33(11)     MOVE 2 BYTES INTO FULLWORD RATE
+1                                                                                                               PAGE    2
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+ 000054 539B 0021            00021    53          XDECI 9,33(11)           CONVERT CHARS AT 33(11) TO BINARY R9
+ 000058 5290 F290            00290    54          XDECO 9,TEMP             R9(RATE) TO CHAR IN TEMP STORAGE
+ 00005C 4150 F290            00290    55          LA    5,TEMP             LOAD ADDRESS OF TEMP(RATE) INTO R5
+ 000060 D204 F2FF 5007 002FF 00007    56          MVC   ORATE(5),7(5)      5 BYTs FROM 7(5) TO ORATE FOR PRNT
+ 000066 D201 F278 B024 00278 00024    57          MVC   HOURS(2),36(11)    MOVE 2 BYTES 36 OFF 11 INTO HOURS
+ 00006C 5370 1000            00000    58          XDECI 7,0(0,1)           NEXT CHARS/CONVER TO BINARY IN R7
+ 000070 5270 F290            00290    59          XDECO 7,TEMP             STORE 12 BYTS CHAR DATA INTO TEMP
+ 000074 4150 F290            00290    60          LA    5,TEMP             LOAD ADDR OF TEMP(HOURS) INTO R5
+ 000078 D204 F304 5007 00304 00007    61          MVC   OHOURS(5),7(5)     MV 5 BYTS 7 OFF (5) TO OHOUR FR PRNT
+                                      62 *
+                                      63 *** <STEP 4> Calcs
+                                      64 *
+ 00007E 1C69                          65          MR    6,9                R7 HOLDS (RATE * HOURS)
+ 000080 D201 F27C B029 0027C 00029    66          MVC   DEDUCTN(2),41(11)  MOVE 2 BYTES 41 OFF 11 INTO DEDUCTN
+ 000086 5340 1000            00000    67          XDECI 4,0(0,1)          READ NEXT CHARS/CONVER TO BINARY IN R4
+ 00008A 5240 F290            00290    68          XDECO 4,TEMP            CONVERT/STORE BINARY TO CHAR IN TEMP
+ 00008E 4150 F290            00290    69          LA    5,TEMP           LOAD ADDR OF TEMP(DEDUCTION) TO R5
+ 000092 D204 F309 5007 00309 00007    70          MVC   ODUDUCT(5),7(5) 5 BYT 7 OFF 5 INTO ODUDUCT FOR OUTPUT
+ 000098 1B74                          71          SR    7,4             R7(RATE*HOURS) MINUS R4(DEDUCTIONS)
+ 00009A D202 F280 B02C 00280 0002C    72          MVC   BONUS(3),44(11) MOVE 3 BYTES 44 OFF 11 INTO BONUS
+ 0000A0 5330 1000            00000    73          XDECI 3,0(0,1)        READ NEXT CHARS/CONVER TO BINARY IN R3
+ 0000A4 5890 F234            00234    74          L     9,=F'0'         INITIALIZE REG 9 WITH 0 FOR TBONUS COUNT
+ 0000A8 1A93                          75          AR    9,3             ADD CURRENT BONUS TO RUNNING TOTAL BONUS
+ 0000AA 5A90 F248            00248    76          A     9,TBONUS        ADD BONUS TO TOTAL BONUS COUNT
+ 0000AE 5090 F248            00248    77          ST    9,TBONUS        STORE UPDATED TOTAL BONUS IN TBONUS
+ 0000B2 59A0 F268            00268    78          C     10,SYMBL1       COMPARE R10 WITH 1ST BONUS MULTIPLIER
+ 0000B6 4770 F0BE            000BE    79          BNE   SEN2            IF NOT EQUAL BRANCH TO SEN2 LABEL
+ 0000BA 5C20 F260            00260    80          M     2,SENRTY1       ELSE MULTPLY R3(BONUS) SENRTY1
+ 0000BE 59A0 F26C            0026C    81 SEN2     C     10,SYMBL2       COMPARE R10 WITH 2ND BONUS MULTPR
+ 0000C2 4770 F0CA            000CA    82          BNE   SEN3            IF NOT EQUAL BRANCH TO SEN3 LABEL
+ 0000C6 5C20 F264            00264    83          M     2,SENRTY2       ELSE MULTIPLY BONUS IN R3 BY SENRTY2
+ 0000CA 1A73                          84 SEN3     AR    7,3             ADD R3(BONUS)TO R7(RATE*HOURS)
+ 0000CC 5230 F290            00290    85          XDECO 3,TEMP          UPDATE CALCULATED BONUS STORED IN TEMP
+ 0000D0 4150 F290            00290    86          LA    5,TEMP          LOAD ADDR OF TEMP(BONUS) TO R5
+ 0000D4 D205 F30E 5006 0030E 00006    87          MVC   OBONUS(6),6(5)  COPY 6 BYT 6 OFF 5 INTO OBONUS
+ 0000DA 5270 F290            00290    88          XDECO 7,TEMP          CONVRT GROSS IN R7 TO CHARS IN TEMP
+ 0000DE 4150 F290            00290    89          LA    5,TEMP          LOAD ADDR OF TEMP(GROSS) INTO R5
+ 0000E2 D206 F314 5005 00314 00005    90          MVC   OGROSS(7),5(5)  COPY 7 BYTS 5 OFF R5 INTO 0GROSS
+ 0000E8 5070 F284            00284    91          ST    7,GROSS         STORE R7 CONTENTS INTO GROSS
+ 0000EC 5A80 F284            00284    92          A     8,GROSS         ADD GROSS TO RUNNING TOTAL GROSS IN R8
+ 0000F0 5C60 F25C            0025C    93          M     6,TXWTHHOL      R7 (GROSS)*(WITHHOLDING PERCENTAGE)
+ 0000F4 5C60 F230            00230    94          M     6,=F'1'         ZERO OUT EVEN REG OF EVEN-ODD PAIR
+ 0000F8 5D60 F238            00238    95          D     6,=F'100'       ((GROSS)*(WITHHOLDING PERCENTAGE))/100
+ 0000FC 5270 F290            00290    96          XDECO 7,TEMP          STORE WITHELD FOR OUTPUT
+ 000100 4150 F290            00290    97          LA    5,TEMP          LOAD ADDR OF TEMP(WITHHELD) INTO R5
+ 000104 D205 F31B 5006 0031B 00006    98          MVC   OWTHELD(6),6(5)  COPY 6 BYT 6 OFF 5 INTO OWTHELD
+ 00010A 5850 F284            00284    99          L     5,GROSS         LOAD GROSS AMOUNT INTO R5 THEN
+ 00010E 1B57                         100          SR    5,7             SUBTRACT R7(WITHELD) FROM R5(GROSS)
+ 000110 5250 F290            00290   101          XDECO 5,TEMP          CONVERT R5(NET) TO CHARS IN TEMP
+ 000114 41A0 F290            00290   102          LA    10,TEMP         LOAD ADDR OF TEMP(NET) INTO R10
+ 000118 D206 F321 A005 00321 00005   103          MVC   ONET(7),5(10)   COPY 7 BYTS 5 OFF R5 INTO ONET
+ 00011E 5860 F234            00234   104          L     6,=F'0'         INITIALIZE R6 TO 0 TO HOLD EMPLY DEDUCTN
+ 000122 1A64                         105          AR    6,4             ADD CURRENT EMPLOYEE DEDUCTION TO COUNT
+ 000124 5A60 F244            00244   106          A     6,TDEDCT        ADD DUDUCTION TO TOTAL DEDUCTION COUNT
+ 000128 5060 F244            00244   107          ST    6,TDEDCT        STORE UPDATED TOTAL DEDUCTION IN TDEDCT
+ 00012C 5830 F234            00234   108          L     3,=F'0'         LOAD REG 3 WITH 0 TO HOLD EMPLOYEE BONUS
+ 000130 1A37                         109          AR    3,7             ADD CURRENT EMPLOYEE WITHHELD TO REG 3
+1                                                                                                               PAGE    3
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+ 000132 5A30 F24C            0024C   110          A     3,TWITHLD       ADD WITHHELD TO TOTAL WITHHELD COUNT
+ 000136 5030 F24C            0024C   111          ST    3,TWITHLD       STORE UPDATED TOTAL WITHHELD IN TWITHLD
+ 00013A 5820 F234            00234   112          L     2,=F'0'         LOAD REG 2 WITH 0 TO HOLD EMPLOYEE NET
+ 00013E 1A25                         113          AR    2,5             ADD CURRENT EMPLOYEE NET TO REG 2
+ 000140 5A20 F250            00250   114          A     2,TNET          ADD NET TO TOTAL NET COUNT
+ 000144 5020 F250            00250   115          ST    2,TNET          STORE UPDATED TOTAL NET IN TNET
+                                     116 *
+                                     117 *** <STEP 5> Prepare Detail line and print results
+                                     118 *
+ 000148 E020 F2E0 0085 002E0         119          XPRNT PRNTLINE,133    PRINT PRNTLINE
+ 00014E E000 F290 0050 00290         120          XREAD RDBUFFER,80     READS 80 BYTES INTO RDBUFFER
+ 000154 47F0 F030            00030   121          B     LOOP            BRANCH TO LOOP
+ 000158                              122 ENDLOOP  DS    0H              BRANCH HERE WHEN NO MORE RECORDS TO READ
+ 000158 52C0 F290            00290   123          XDECO 12,TEMP         CONVERT EMPLOYEE COUNT TO CHARACTERS
+ 00015C 4150 F290            00290   124          LA    5,TEMP          LOAD ADDR OF TEMP(EMPLOYEE COUNT)INTO R5
+ 000160 D206 F377 5005 00377 00005   125          MVC   OEMPCNT(7),5(5) COPY 7 BYTS 5 OFF R5 IN TEMP FOR EMPLO
+ 000166 E020 F365 0085 00365         126          XPRNT PRNTLN2,133     PRINT PRNTLN2
+ 00016C 5860 F244            00244   127          L     6,TDEDCT        LOAD TOTAL DEDUCTIONS INTO R6
+ 000170 5260 F290            00290   128          XDECO 6,TEMP          CONVERT TOTAL DEDUCTION IN R6 TO CHARS
+ 000174 4150 F290            00290   129          LA    5,TEMP          LOAD ADDR OF TEMP(TOTAL DEDUCTN) INTO R5
+ 000178 D206 F3FE 5005 003FE 00005   130          MVC   OTDEDCT(7),5(5) COPY 7 BYTS 5 OFF R5 IN OTDEDUCT
+ 00017E E020 F3EC 0085 003EC         131          XPRNT PRNTLN3,133     PRINT PRNTLN3
+ 000184 5860 F248            00248   132          L     6,TBONUS        LOAD TOTAL BONUS INTO R6
+ 000188 5260 F290            00290   133          XDECO 6,TEMP          CONVERT TBONUS IN R6 TO CHARS IN TEMP
+ 00018C 4150 F290            00290   134          LA    5,TEMP          LOAD BEGINNING ADDR OF TEMP(TBONUS) R5
+ 000190 D206 F485 5005 00485 00005   135          MVC   OTBONUS(7),5(5) COPY 7 BYTS 5 OFF R5 TO MOVE T BONUS
+ 000196 E020 F473 0085 00473         136          XPRNT PRNTLN4,133     PRINT PRINTLN4
+ 00019C 5280 F290            00290   137          XDECO 8,TEMP          CONVERT TGROSS IN R8 TO CHARS IN TEMP
+ 0001A0 4150 F290            00290   138          LA    5,TEMP          LOAD BEGINNING ADDR OF TEMP(TGROSS) R5
+ 0001A4 D206 F50C 5005 0050C 00005   139          MVC   OTGROSS(7),5(5) MOVE 7 BYTS 5 OFF R5 TO MOVE T GROSS
+ 0001AA E020 F4FA 0085 004FA         140          XPRNT PRNTLN5,133     PRINT PRINTLN5
+ 0001B0 5860 F24C            0024C   141          L     6,TWITHLD       LOAD BEGINNING ADDR OF TWITHLD INTO R6
+ 0001B4 5260 F290            00290   142          XDECO 6,TEMP          CONVERT TOTAL WITHHELD IN R6 TO CHARS
+ 0001B8 4150 F290            00290   143          LA    5,TEMP          LOAD BEGINNING ADDR TEMP(TOTAL WITHLD)R5
+ 0001BC D206 F593 5005 00593 00005   144          MVC   OTWTHLD(7),5(5) COPY 7 BYTS 5 OFF R5 TO MOVE OTWTHLD
+ 0001C2 E020 F581 0085 00581         145          XPRNT PRNTLN6,133     PRINT PRINTLN6
+ 0001C8 5860 F250            00250   146          L     6,TNET          LOAD ADDR OF TNET INTO R6
+ 0001CC 5260 F290            00290   147          XDECO 6,TEMP          CONVERT TOTAL NET IN R6 TO CHARS
+ 0001D0 4150 F290            00290   148          LA    5,TEMP          LOAD BEGINNING ADDR TEMP(TOTAL NET) R5
+ 0001D4 D206 F61A 5005 0061A 00005   149          MVC   OTNET(7),5(5)   MOVE 7 BYTS 5 OFF R5 TO MOVE OTNET
+ 0001DA E020 F608 0085 00608         150          XPRNT PRNTLN7,133     PRINT PRNTLN7
+ 0001E0 4170 8000            00000   151          LA    7,0(0,8)        LOAD ADDRESS OF TOTAL GROSS INTO R7
+ 0001E4 5C60 F230            00230   152          M     6,=F'1'         ZERO OUT EVEN REG OF EVEN-ODD PAIR 6 7
+ 0001E8 1D6C                         153          DR    6,12            DIVIDE R7(TGROSS) BY R12(EMPLOYE COUNT)
+ 0001EA 5070 F254            00254   154          ST    7,AVGROSS       STORE (TGROSS/EMPCOUNT) INTO AVGROSS
+ 0001EE 5860 F254            00254   155          L     6,AVGROSS       LOAD ADDR OF AVGROSS INTO R6
+ 0001F2 5260 F290            00290   156          XDECO 6,TEMP          CONVERT AVERAGE GROSS IN R6 TO CHARS
+ 0001F6 4150 F290            00290   157          LA    5,TEMP           LOAD BEGINNING ADDR OF TEMP INTO R5
+ 0001FA D206 F6A1 5005 006A1 00005   158          MVC   OAVGROSS(7),5(5)  MOVE 7 BYTS 5 OFF R5 TO MOVE OAVGROSS
+ 000200 E020 F68F 0085 0068F         159          XPRNT PRNTLN8,133      PRINT PRNTLN8
+ 000206 4170 2000            00000   160          LA    7,0(0,2)        LOAD ADDRESS OF TOTAL NET INTO R7
+ 00020A 5C60 F230            00230   161          M     6,=F'1'         ZERO OUT EVEN REG OF EVEN-ODD PAIR
+ 00020E 1D6C                         162          DR    6,12            DIVIDE R7(OAVNET) BY R12(EMPLOYE COUNT)
+ 000210 5070 F258            00258   163          ST    7,AVNET         STORE (TNET/EMPCOUNT) INTO OAVNET
+ 000214 5860 F258            00258   164          L     6,AVNET         LOAD ADDR OF OAVNET INTO R6
+ 000218 5260 F290            00290   165          XDECO 6,TEMP          CONVERT AVERAGE NET IN R6 TO CHARS
+ 00021C 4150 F290            00290   166          LA    5,TEMP          LOAD BEGINNING ADDR OF TEMP(AVNET) TO R5
+1                                                                                                               PAGE    4
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+ 000220 D206 F728 5005 00728 00005   167          MVC   OAVNET(7),5(5)  MOVE 7 BYTS 5 OFF R5 TO MOVE OAVNET
+ 000226 E020 F716 0085 00716         168          XPRNT PRNTLN9,133     PRINT PRNTLN9
+ 00022C 07FE                         169          BR    14              UNCONDITIONAL RETURN TO CALLER
+                                     170 *
+                                     171 * ====== Program storage =========================================
+                                     172 *
+                                     173          LTORG
+ 000230 00000001                     174                =F'1'
+ 000234 00000000                     175                =F'0'
+ 000238 00000064                     176                =F'100'
+ 00023C 00000000                     177 EMPCOUNT DC    F'0'       STORAGE TO COUNT NUMBER OF EMPLOYEES
+ 000240 00000000                     178 TGROSS   DC    F'0'       TOTAL GROSS INITIALIZED TO 0
+ 000244 00000000                     179 TDEDCT   DC    F'0'       TOTAL DEDUCTION COUNTER INITIALIZED TO 0
+ 000248 00000000                     180 TBONUS   DC    F'0'       TOTAL BONUS COUNTER INITIALIZED TO 0
+ 00024C 00000000                     181 TWITHLD  DC    F'0'       TOTAL WITHHELD COUNTER INITIALIZED TO 0
+ 000250 00000000                     182 TNET     DC    F'0'       TOTAL NET COUNTER INITIALIZED TO 0
+ 000254                              183 AVGROSS  DS    F          STORAGE TO HOLD AVERAGE GROSS
+ 000258                              184 AVNET    DS    F          STORAGE TO HOLD AVERAGE NET
+ 00025C                              185 TXWTHHOL DS    F          STORAGE FOR TAX WITHHOLDING PERCENTAGE
+ 000260                              186 SENRTY1  DS    F          STORAGE FOR BONUS MULTIPLIER 1
+ 000264                              187 SENRTY2  DS    F             STORAGE FOR BONUS MULTIPLIER 2
+ 000268 5CF5F5F5                     188 SYMBL1   DC    F'1559623157'   SENIORITY CHARACTER INDICATOR 1
+ 00026C 4EF5F5F5                     189 SYMBL2   DC    F'1324742133'   SENIORITY CHARACTER INDICATOR 2
+ 000270                              190 SENRTY   DS    F             STORAGE FOR SENIORITY LEVEL
+ 000274                              191 RATE     DS    F          FULLWORD TO HOLD RATE BINARY DATA
+ 000278                              192 HOURS    DS    F          HOURS FIELD
+ 00027C                              193 DEDUCTN  DS    F          STORAGE FOR DEDUCTION
+ 000280                              194 BONUS    DS    F          STORAGE FOR BONUS
+ 000284                              195 GROSS    DS    F          STORAGE FOR GROSS
+ 000288                              196 WITHHELD DS    F          STORAGE FOR WITHHELD
+ 00028C                              197 NET      DS    F          STORAGE FOR NET
+ 000290                              198 TEMP     DS    0H         TEMP STORAGE FOR XDECO DATA
+ 000290                              199 RDBUFFER DS    CL80       STORAGE FOR READ BUFFER
+ 0002E0 F0                           200 PRNTLINE DC    C'0'       SET DOUBLE SPACING ON THIS LINE
+ 0002E1                              201 EMPLYNAM DS    CL25       EMPLYNAM FIELD
+ 0002FA                              202 ID       DS    CL5        ID FIELD
+ 0002FF                              203 ORATE    DS    CL5        RATE FIELD
+ 000304                              204 OHOURS   DS    CL5        OUTPUT HOURS FIELD
+ 000309                              205 ODUDUCT  DS    CL5        DEDUCTN FIELD
+ 00030E                              206 OBONUS   DS    CL6        BONUS FIELD
+ 000314                              207 OGROSS   DS    CL7        OUTPUT GROSS FIELD
+ 00031B                              208 OWTHELD  DS    CL6        OUPUT FOR WITHELD
+ 000321                              209 ONET     DS    CL7        OUTPUT NET FIELD
+ 000328 4040404040404040             210          DC    61C' '
+ 000365 F0                           211 PRNTLN2  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+ 000366 40E396A381934085             212 EMPCTFLD DC    C' Total employees:'   EMPLOYEE COUNT FIELD
+ 000377                              213 OEMPCNT  DS    CL7                    OUTPUT FOR EMPLOYEE COUNT
+ 00037E 4040404040404040             214          DC    110C' '                SPACING TO FILL LEFTOVER BLANKS
+ 0003EC F0                           215 PRNTLN3  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+ 0003ED E396A38193408485             216 TDEDFLD  DC    C'Total deductions:'   TOTAL DEDUCTIONS FIELD
+ 0003FE                              217 OTDEDCT  DS    CL7                    OUTPUT FOR TOTAL DEDUCTIONS
+ 000405 4040404040404040             218          DC    110C' '                110 CHARACTER SPACES
+ 000473 F0                           219 PRNTLN4  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+ 000474 404040E396A38193             220 TBNUSFLD DC    C'   Total bonuses:'   TOTAL BONUS FIELD
+ 000485                              221 OTBONUS  DS    CL7                    OUTPUT STORAGE FOR TOTAL BONUS
+ 00048C 4040404040404040             222          DC    110C' '                SPACING TO FILL LEFTOVER BLANKS
+ 0004FA F0                           223 PRNTLN5  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+1                                                                                                               PAGE    5
+0  LOC  OBJECT CODE    ADDR1 ADDR2  STMT   SOURCE STATEMENT
+ 0004FB 4040404040E396A3             224 TGRSSFLD DC    C'     Total gross:'   TOTAL GROSS FIELD
+ 00050C                              225 OTGROSS  DS    CL7                    OUTPUT STORAGE FOR TOTAL GROSS
+ 000513 4040404040404040             226          DC    110C' '                SPACING TO FILL LEFTOVER BLANKS
+ 000581 F0                           227 PRNTLN6  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+ 000582 4040E396A3819340             228 TWITHFLD DC    C'  Total withheld:'   TOTAL WITHHELD FIELD
+ 000593                              229 OTWTHLD  DS    CL7                    OUTPUT STORAGE FOR TOTAL WITHHLD
+ 00059A 4040404040404040             230          DC    110C' '                SPACING TO FILL LEFTOVER BLANKS
+ 000608 F0                           231 PRNTLN7  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+ 000609 40404040404040E3             232 TNETFLD  DC    C'       Total net:'   TOTAL NET FIELD
+ 00061A                              233 OTNET    DS    CL7                    STORAGE TO HOLD TOTAL NET
+ 000621 4040404040404040             234          DC    110C' '                SPACING TO FILL LEFTOVER BLANKS
+ 00068F F0                           235 PRNTLN8  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+ 000690 404040C1A5859981             236 AGROSFLD DC    C'   Average gross:'   AVERAGE GROSS FIELD
+ 0006A1                              237 OAVGROSS DS    CL7                    STORAGE TO HOLD AVERAGE GROSS
+ 0006A8 4040404040404040             238          DC    110C' '                SPACING TO FILL LEFTOVER BLANKS
+ 000716 F0                           239 PRNTLN9  DC    C'0'                   SET DOUBLE SPACING ON THIS LINE
+ 000717 4040404040C1A585             240 ANETFLD  DC    C'     Average net:'   AVERAGE NET FIELD
+ 000728                              241 OAVNET   DS    CL7                    STORAGE TO HOLD AVERAGE NET
+ 00072F 4040404040404040             242          DC    110C' '                SPACING TO FILL LEFTOVER BLANKS
+                                     243 *
+                                     244          END   PAYROLL1
+0***  NO   STATEMENTS FLAGGED -  NO   WARNINGS,  NO   ERRORS
+0*** DYNAMIC CORE AREA USED:  LOW:   16132 HIGH:    1596 LEAVING:  475840 FREE BYTES. AVERAGE:       72 BYTES/STMT ***
+0*** ASSEMBLY TIME =    0.000 SECS,   245000 STATEMENTS/SEC ***
+0*** PROGRAM EXECUTION BEGINNING - ANY OUTPUT BEFORE EXECUTION TIME MESSAGE IS PRODUCED BY USER PROGRAM ***
+0BELA BARTOK              10982   18   55    0   410   14008430226844422
+0JOHANN SEBASTIAN BACH    11592   20   80    0     0   1600842165 843765
+0FREDERIC CHOPIN          13117   24   60    0     0   14400529165054356
+0WOLFGANG AMADEUS MOZART  19827   18   80   19     0   14218007002802121
+0RICHARD STRAUSS          27781   22   80    0    20   17802636379261857
+0MAX REGER                27791   20   80   15   300   18854744253476310
+0DAME ETHEL SMYTHE        27860   20   55   15   720   18058950355893230
+0JOHANNES BRAHMS          29155   19   80   15     0   15053685873367082
+0ANTON BRUCKNER           29771   18   60   72   410   14182425077243925
+0JOAN TOWER               29917   19   70    0     0   13300008716002201
+0GEORG FRIEDRICH HANDEL   36682   18   80   19     0   14218007002802121
+0THOMAS TALLIS            38871   19   65   40   700   18959479370946042
+0JOSEPH HAYDEN            48129   15   55    0     0    8256851517684326
+0RICHARD WAGNER           49288   25   75   30     0   18456851417683296
+0GIUSEPPI VERDI           49928   21   45   84   200   10619373659936304
+1ANTONIN DVORAK           61992   22   80    0     0   17603685843366824
+0NIKOLAI RIMSKY-KORSAKOV  62110   18   55   25     0    9650008495999884
+0LUDWIG VAN BEETHOVEN     71772   15   80   25     0   11754743953473220
+0EDWARD ELGAR             77296   24   80    0   190   2110842170 844280
+0RALPH VAUGHAN WILLIAMS   82661   21   60    0   150   14105793407577930
+0SAMUEL BARBER            82799   20   55   29     0   10715899448591015
+0AMY BEACH                91926   10   80   92   670   13780326139033991
+0PETER ILYICH TCHAIKOVSKY 92228   21   45   15     0    9300529115053841
+0CLAUDE DEBUSSY           92877   21   60    0     0   12601587205159980
+0 Total employees:     24
+0Total deductions:    495
+0   Total bonuses:   7280
+0     Total gross:  34690
+0  Total withheld:8527643
+0       Total net:8562333
+0   Average gross:   1445
+0     Average net:  74379
+0*** EXECUTION TIME =    0.001 SECS.      1702 INSTRUCTIONS EXECUTED -  1702000 INSTRUCTIONS/SEC ***
+0*** AM004 - NORMAL USER TERMINATION BY RETURN ***
