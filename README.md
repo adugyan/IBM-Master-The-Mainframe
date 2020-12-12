@@ -1,3 +1,3 @@
 # IBM-zos-Assembler
 
-Collection of zos Assembler programs written for practice or as part of the IBM master the mainfram competition 2020.
+Collection of z/os Assembler programs written for practice or as part of the IBM master the mainframe competition 2020.
