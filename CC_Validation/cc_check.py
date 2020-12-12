@@ -41,21 +41,12 @@ for cc_line in cc_list:                 # do everything here for every item in t
 
 #The Report-Writing Part
     #
-    # NOTE: DON'T USE APPEND FOR MULTIPLE LINES. 
-    #       IT WILL BE SLOW
-    #       INSTEAD, THROW EVERYTHING INTO A VARIABLE
-    #       AND WRITE THAT OUT ONCE, LIKE THIS.
-    #       
-    #       TRUST US ON THIS.
-    #
-    #       YOU SHOULD BE ABLE TO USE THE CODE BELOW, ONLY HAVING TO ADD
-    #       A LINE TO WRITE OUT THE FINAL report_output TO YOUR output_dataset
-    #       REMEMBER, THE REPORT NEEDS TO HAVE THE DATETIME STRING IN IT ABOVE THE DATA
+
     #
 now = datetime.now()
 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 report_output = '\n'.join(invalid_cc_list)
 report_output = "INVALID CREDIT CARD REPORT FOR " + dt_string + '\n\n' + report_output
 print(report_output)  # Print it out to the screen. 
-# When you're ready to write your report out to file, uncomment that last line
+
 Datasets.write(output_dataset,report_output)
