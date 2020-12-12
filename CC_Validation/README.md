@@ -1,1 +1,1 @@
-An app to take generated credit card information and use luhn's algorithm to sort out the invalid information.
+An app to take generated credit card information, stored in a dataset, and then use luhn's algorithm to sort out the invalid information.
